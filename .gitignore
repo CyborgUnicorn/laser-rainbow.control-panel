@@ -11,3 +11,11 @@
 *.lai
 *.la
 *.a
+
+# Visual C++ Solution files
+*.sdf
+*.suo
+*.opensdf
+*.vcxproj.user
+Debug/
+ipch/
