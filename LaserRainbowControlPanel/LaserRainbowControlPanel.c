@@ -1,39 +1,41 @@
 
 #include <stdio.h>
-#include <cstdio>
+#include <stdint.h>
 
 #include "libusb-1.0/libusb.h"
 
 libusb_context *ptrContext;
 libusb_device_handle *ptrDeviceHandle;
 
-//http://sourceforge.net/projects/libwdi/files/zadig/
-
-int main(int argc, void* argv[])
+int main(int argc, char* argv[])
 {
-	const unsigned short vendorId = 0x03eb;
+	const uint16_t vendorId = 0x03eb;
+	uint32_t numDevices, i;
 
-	libusb_device **deviceList = nullptr;
+	libusb_device **deviceList = NULL;
 
 	libusb_init(&ptrContext);
 
-	uint32_t numDevices = libusb_get_device_list(ptrContext, &deviceList);
+	numDevices = libusb_get_device_list(ptrContext, &deviceList);
 
 	printf("Get device list, found %d devices\n", numDevices);
 
-	ptrDeviceHandle = nullptr;
+	ptrDeviceHandle = NULL;
 
-	for ( uint32_t i = 0; i < numDevices; ++i ) {
-		libusb_device *device = deviceList[i];
+	
+	for ( i = 0; i < numDevices; ++i ) {
+		libusb_device *device = NULL;
+		struct libusb_device_descriptor desc;
+		
+		device = deviceList[i];
 
-		libusb_device_descriptor desc;
 		libusb_get_device_descriptor(device, &desc);
 
 		if ( desc.idVendor == vendorId ) {
 			printf("Found device matching vendorId %x\n", vendorId);
 
 			libusb_open(device, &ptrDeviceHandle);
-			if ( ptrDeviceHandle != nullptr ) {
+			if ( ptrDeviceHandle != NULL ) {
 				printf("Device open\n");
 				break;
 			} else {
@@ -45,7 +47,7 @@ int main(int argc, void* argv[])
 
 	libusb_free_device_list(deviceList, 0);
 
-	if ( ptrDeviceHandle != nullptr ) {
+	if ( ptrDeviceHandle != NULL ) {
 		printf("Sending command\n");
 		
 		libusb_control_transfer(ptrDeviceHandle, 0x40, 0x7, 0, 1, 0, 0, (uint16_t)5000);
@@ -54,11 +56,13 @@ int main(int argc, void* argv[])
 
 		// Close the device
 		libusb_close(ptrDeviceHandle);
-		ptrDeviceHandle = nullptr;
+		ptrDeviceHandle = NULL;
+	} else {
+		printf("Found NO device matching vendorId %x\n", vendorId);
 	}
 
-	std::puts("Press any key to continue...");
-	std::getchar();
+	printf("Press any key to continue...");
+	getchar();
 	
 	return 0;
 }

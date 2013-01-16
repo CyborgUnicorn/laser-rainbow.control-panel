@@ -11,7 +11,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LaserRainbowControlPanel.cpp">
+    <ClCompile Include="LaserRainbowControlPanel.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
