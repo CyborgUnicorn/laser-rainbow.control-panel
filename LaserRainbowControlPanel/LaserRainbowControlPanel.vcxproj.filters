@@ -11,8 +11,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="LaserRainbowControlPanel.c">
+    <ClCompile Include="src\laserrainbow.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\lrusb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\laserrainbow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lrusb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

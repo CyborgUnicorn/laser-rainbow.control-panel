@@ -10,6 +10,14 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\laserrainbow.c" />
+    <ClCompile Include="src\lrusb.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\laserrainbow.h" />
+    <ClInclude Include="src\lrusb.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5A5129BF-AC91-471A-8F91-86CC4A4CD11F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -39,6 +47,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>libusb-1.0;gtk\include;gtk\include\gtk-2.0;gtk\include\glib-2.0;gtk\lib\glib-2.0\include;gtk\include\cairo;gtk\include\pango-1.0;gtk\lib\gtk-2.0\include;gtk\include\atk-1.0;gtk\include\gdk-pixbuf-2.0;$(IncludePath)</IncludePath>
+    <LibraryPath>gtk/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -49,11 +59,16 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libusb-1.0/libusb-1.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libusb-1.0/libusb-1.0.lib;glib-2.0.lib;gtk-win32-2.0.lib;gdk-win32-2.0.lib;gobject-2.0.lib;gdk_pixbuf-2.0.lib;gthread-2.0.lib;gmodule-2.0.lib;pango-1.0.lib;atk-1.0.lib;zdll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -73,9 +88,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="LaserRainbowControlPanel.c" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
